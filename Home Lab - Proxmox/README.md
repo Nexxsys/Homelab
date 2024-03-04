@@ -366,3 +366,87 @@ Let's Encrypt
 https://letsencrypt.org/
 
 ---
+
+### Adding an new network card/port
+Once the card is installed you should see the device appear un the Node --> System --> Network list.
+![[Pasted image 20220808153438.png]]
+
+Create a Network Bridge for the PCI Card  
+  
+You need to create a Network Bridge for the NIC so it can work.  
+  
+1.Click on the Host in the Proxmox Webinterface  
+  
+[![1.png](https://forum.proxmox.com/data/attachments/19/19350-bad27b7807505539106d4c2a84cd2ae1.jpg "1.png")](https://forum.proxmox.com/attachments/1-png.19654/)  
+  
+2. First click on System and then click on Network  
+[![2.png](https://forum.proxmox.com/data/attachments/19/19351-dd8eaf5082de518891ba4db3f4e3b763.jpg "2.png")](https://forum.proxmox.com/attachments/2-png.19655/)  
+  
+2.1 If the IOMMU migration was succsesfull you should see at least to Network devicese  
+[![You should see multiply devices when IOMMU is enabled.png](https://forum.proxmox.com/data/attachments/19/19354-f41a5bb99e531db159ff2e0fab6d5854.jpg "You should see multiply devices when IOMMU is enabled.png")](https://forum.proxmox.com/attachments/you-should-see-multiply-devices-when-iommu-is-enabled-png.19658/)  
+3. Navigate to the top corner  
+First click on Create  
+Secon click on Linux Bridge  
+[![3.png](https://forum.proxmox.com/data/attachments/19/19352-c425a16577ea441522868214427a481d.jpg "3.png")](https://forum.proxmox.com/attachments/3-png.19656/)  
+  
+4. In the Setup window you shoul add atleast the  
+-Name it need to be vmbr and a number  
+-Add a IP Adress and a Subnetmask  
+-In Bridge ports add the name of the Network Card  
+[![Create Bridge.png](https://forum.proxmox.com/data/attachments/19/19353-c9fcc54bff85c71649111c4fb3750e80.jpg "Create Bridge.png")](https://forum.proxmox.com/attachments/create-bridge-png.19657/)  
+  
+5.After that you can add the Hardware in youre VM  
+[![2020-09-04 22_28_49-pve - Proxmox Virtual Environment – Opera.png](https://forum.proxmox.com/data/attachments/19/19355-7da9157367f146cddb6cff84a36a8244.jpg "2020-09-04 22_28_49-pve - Proxmox Virtual Environment – Opera.png")](https://forum.proxmox.com/attachments/2020-09-04-22_28_49-pve-proxmox-virtual-environment-%E2%80%93-opera-png.19659/)  
+  
+On the pop up window you should see the new NICs  
+[![2020-09-04 22_29_45-pve - Proxmox Virtual Environment – Opera.png](https://forum.proxmox.com/data/attachments/19/19356-6e1a7fdffa6923f7dadbd3861264e403.jpg "2020-09-04 22_29_45-pve - Proxmox Virtual Environment – Opera.png")](https://forum.proxmox.com/attachments/2020-09-04-22_29_45-pve-proxmox-virtual-environment-%E2%80%93-opera-png.19660/)  
+
+
+qemu-guest-agent
+
+---
+
+## Setup RDP on Kali
+-   **adduser tdh** _Add a user for remote login. Set a password and other info._{OPTIONAL if you already have a user}
+-   **usermod -aG sudo tdh** _Get an updated list of installable packages_ (OPTIONAL if you already have a user)
+-   **apt-get update** _Get an updated list of installable packages_
+-   **apt-get install xrdp** _Install the RDP server_
+-   **systemctl start xrdp** _Start the base XRDP server_
+-   **systemctl start xrdp-sesman** _Start the XRDP session manager_
+
+tbh = your username
+
+You can enable XRDP to start automatically on boots with the following commands:
+```bash
+systemctl enable xrdp
+systemctl enable xrdp-sesman
+```
+
+---
+
+## Enable SSH on Kali Linux
+RDP or access the Kali VM via the console. Run `kali-tweaks` in the terminal and select `Hardening-->SSH Client` apply and return to terminal.
+
+##### Generating  Keys for Kali Linux SSH Server
+Encryption keys must be needed to create a secure and encrypted session between computers and use securely. The following command is used to generate these keys in Kali Linux.
+
+The first move the original keys form their default directory into a new directory, however, don’t delete them.
+```bash
+mkdir –p /etc/ssh/original_keys
+
+mv /etc/ssh/ssh_host_* /etc/ssh/original_keys
+
+cd /etc/ssh
+```
+
+Generate new keys
+```bash
+dpkg-reconfigure openssh-server
+```
+
+Start and Restart the Kali Linux SSH Server
+```bash
+service ssh start
+
+service ssh restart
+```
