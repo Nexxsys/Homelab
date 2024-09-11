@@ -1,4 +1,6 @@
-# My InfoSec Projects
-This repository will contain various projects and activities I have conducted on my learning path in Information Security (InfoSec) also known as Cyber Security.
+# Homelab
+These are files and notes regarding my homelab servers and configurations.
 
 ## Projects & Activities
+* Mediamaven
+* Proxmox
