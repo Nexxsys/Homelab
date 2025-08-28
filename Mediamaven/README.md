@@ -56,3 +56,13 @@
 `mkdir ~/.local/share/fonts
 touch ~/.Xresources && echo "URxvt*font:    xft:Hack Nerd Font:style=Regular:size=11" >> ~/.Xresources
 fc-cache -f -v`
+
+# Immich Photo and Video Move Scripts
+### Dry run (default)
+`./Upload-Photo-Mover.py`
+
+### Actually move files  
+`./Upload-Photo-Mover.py --execute`
+
+### With cleanup
+`./Upload-Photo-Mover.py --execute --cleanup-empty`
