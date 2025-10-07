@@ -59,10 +59,10 @@ fc-cache -f -v`
 
 # Immich Photo and Video Move Scripts
 ### Dry run (default)
-`./Upload-Photo-Mover.py`
+`./photo_organize.py`
 
 ### Actually move files  
-`./Upload-Photo-Mover.py --execute`
+`./photo_organize.py --execute`
 
 ### With cleanup
-`./Upload-Photo-Mover.py --execute --cleanup-empty`
+`./photo_organize.py --execute --cleanup-empty`
